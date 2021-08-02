@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه پروفایل ادمین</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/admin_style.css')}}">
+    <script>function toFarsiNumber(n) {
+        const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    
+        return n
+          .toString()
+          .split('')
+          .map(x => farsiDigits[x])
+          .join('');
+      }</script>
+</head>
+<body>
+
+    <div class="grid-container">
+        <div class="side-bar"></div>
+        <div class="main">
+                <div class="main__menu">
+                    <!-- <button class="sign-in">ورود/ثبت نام</button> -->
+                    <div class="signed-in">
+                        <button class="signed-in__btn"><p>V</p><p>admin</p></button>
+                        <div class="signed-in__dropdown-content">
+                            <a href="/admin">پروفایل</a>
+                            <a href="/logout">خروج از حساب</a>
+                        </div>
+                    </div>
+                    <div class="main__menu__items">
+                        <button onclick="window.location.replace(`${window.location.origin}/main#productt`)">محصولات</button>
+                        <button>پشتیبانی</button>
+                        <button onclick="window.location.replace(`${window.origin}/main`)">صفحه اول</button>
+                        <button class="main__menu__shop">فروشگاه</link>
+                    </div>
+                </div>
+                <!-- Upper Tab content -->
+                <div class="main__main">
+                    <div class="loading-2 loading-2--full-height"></div>
+                    {% with messages = get_flashed_messages(with_categories=true) %} 
+                        {% if messages %} 
+                            {% for category, message in messages %} 
+                                {% if category == 'error' %}
+                                <div class="alert">
+                                    <span class="closebtn">&times;</span>  
+                                    {{ message }}
+                                  </div>
+                                {% endif %}
+                                {% if category == 'success' %}
+                                <div class="alert success">
+                                    <span class="closebtn">&times;</span>  
+                                    {{ message }}
+                                </div> 
+                                {% endif %}
+                                {% if category == 'warning' %}
+                                <div class="alert warning">
+                                    <span class="closebtn">&times;</span>  
+                                    {{ message }}
+                                </div> 
+                                {% endif %} 
+                            {% endfor %}
+                        {% endif %} 
+                    {% endwith %}
+                    <div class="tab">
+                        <div id="admin__header" class="tabcontent1">
+                            <p class="admin__header__welcome">ادمین عزیز، خوش آمدید</p>
+                        </div>
+                        <!-- Tab Buttons -->
+                        <div class="tab__buttons">
+                            <button class="tab__receipt__button">رسید‌ها</button>
+                            <button class="tab__category__button">لیست دسته‌ها</button>
+                            <button class="tab__product__button">لیست کالا‌ها</button>
+                        </div>
+                        <!-- Lower Tab Content -->
+                        <div id="product__content" class="tabcontent">
+                            <div class="product__content__upper"><button>+ ایجاد محصول جدید</button></div>
+
+                            <div class="product__content__lower">
+                            </div>
+
+                        </div>
+                        <div id="category__content" class="tabcontent">
+                            <div class="category__add">
+                                <div class="label__div"><button class="add-category" style="background-color: inherit; border: none;"><i class="category__add__label">ایجاد دسته بندی جدید</i></button></div>
+                                <input type="text" class="category__add__input" placeholder="دسته بندی خود را وارد کنید">
+                            
+                        </div>
+                        <div class="category__table__div">
+                            <table class="category__table">
+                                <tr>
+                                <th>نام دسته بندی</th>
+                                <th>عملیات</th>
+                                </tr>                                
+                            </table>
+                        </div>
+                        </div>
+                        <div id="receipt__content" class="tabcontent">
+                            <div class="receipt__search">
+                                    <div class="label__div"><button class="search-receipt" style="background-color: inherit; border: none;"><i class="receipt__search__label">جستجوی کد پیگیری</i></button></div>
+                                    <input type="text" class="recept__search__input" placeholder="کد پیگیری را برای جستجو وارد کنید">
+                                
+                            </div>
+                            <div class="receipt__table__div">
+                                <table class="receipt__table">
+                                    <tr>
+                                    <th>کد پیگیری</th>
+                                    <th>کالا</th>
+                                    <th>قیمت پرداخت شده</th>
+                                    <th>نام خریدار</th>
+                                    <th>آدرس ارسال شده</th>
+                                    <th>تعداد خرید</th>
+                                    <th>وضعیت خرید</th>
+                                    </tr>
+                                    <!-- <tr>
+                                    <td>ُSHOP102030</td>
+                                    <td>موس گیمینگ ریزر</td>
+                                    <td>200,000 تومان</td>
+                                    <td>علیرضا</td>
+                                    <td>تهران، تهران، امیرکبیر</td>
+
+                                    <td>در حال انجام</td>
+                                    </tr> -->
+                                    
+                                    
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="edit-cat-div">
+                        <div class="old-cat-name" style="display: none;">asdasd</div>
+                        <br>
+                        <input type="text" class="cat-name" name="cat_name" placeholder="نام دسته بندی را وارد کنید"> <label for="cat_name">نام دسته بندی</label>
+                        <br>
+                        <button class="edit-cat-btn">ثبت</button>
+                        <button class="close-edit-cat">انصراف</button>
+                    </div>
+                    
+                    <div class="edit-rec-div">
+                        <div class="old-rec-name" style="display: none;">asdasd</div>
+                        <br>
+                        <input type="text" class="rec-name" name="rec_name" placeholder="وضعیت خرید را وارد کنید"> <label for="cat_name">وضعیت خرید</label>
+                        <br>
+                        <button class="edit-rec-btn">ثبت</button>
+                        <button class="close-edit-rec">انصراف</button>
+                    </div>
+
+
+                </div>
+                <div class="main__footer">
+                <p class="main__footer__text">تمامی حقوق برای توسعه دهندگان، علیرضا عابدینی و سلوا کریمی، محفوظ است </p>
+                </div>
+            
+        </div>
+        <div class="side-bar"></div>
+    </div>
+    
+    <script src="{{url_for('static', filename='/js/admin.js')}}"></script>
+</body>
+</html>

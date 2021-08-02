@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ویرایش محصول</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+    <p>"{{ product }}"</p>
+    <div style="align-items: right;">
+        <form class="form-group">
+            <input type="text" name="name" class="name-inp" ><label for="name">نام محصول</label>
+        </form>
+            <br>
+        <form class="form-group">
+            <input type="text" name="category" placeholder="دسته بندی نشده" class="cat-inp"> <label for="category">دسته بندی</label>
+            <br>
+        </form>
+        <form class="form-group">
+            <input type="number" name="price" class="price-inp"><label for="price">قیمت</label>
+            <br>
+        </form>
+        <form class="form-group">
+            <input type="number" name="availability_number" class="av-num"><label for="availability_number">موجودی</label>
+        </form>
+        <form class="form-group">
+            <input type="text" name="image" class="img-inp"><label for="image">آدرس عکس</label>
+        </form>
+            <button class="btn btn-primary" id= "edit" onclick="submit_product('edit', '{{ product }}')">ویرایش</button>
+            <button class="btn btn-primary" id = "delete" onclick="submit_product('delete', '{{ product }}')" style="background-color: rgb(238, 90, 90);">حذف محصول</button>
+
+            <a href="/admin">بازگشت</a>
+    </div>    
+
+    </form>
+
+    <script>
+        var edit_btn = document.querySelector("#edit")
+        var delete_btn = document.querySelector("#delete")
+        // edit_btn.addEventListener('click', (event)=> submit_product("edit"))
+        // delete_btn.addEventListener('click', (event)=> submit_product("delete"))
+        function submit_product(request_type, product_name){
+            if (request_type === "edit"){
+                console.log(request_type, product_name)
+                var name = document.querySelector(".name-inp").value
+                var category = document.querySelector(".cat-inp").value
+                var price = document.querySelector(".price-inp").value
+                var av = document.querySelector(".av-num").value
+                var sold = 0
+                var image = document.querySelector(".img-inp").value
+                fetch(`${window.origin}/admin/edit_product/submit`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                       "old_name": product_name ,"name": name, "category": category, "price": price, "av": av, "sold": sold, "image": image
+                    }),
+                    headers: new Headers({"content-type": "application/json"})
+                })
+                .then(function (response){
+                    if(response.status !== 200){
+                        console.log(`bad request: ${response.status}`)
+                        window.alert(`Cant Edit the product with this data. Error: ${response.status}`)
+                        window.location.replace('/admin')
+                    }
+                    else{
+                        window.location.replace('/admin')
+                    }
+            
+                    }
+                )
+            }
+            else{
+                fetch('/admin/edit_product/delete',{
+                    method: "POST",
+                    body: JSON.stringify({product_name: product_name})
+                })
+                .then((_res)=>{
+                    if(_res.status === 200){
+                        window.location.replace('/admin')}
+                })
+            }
+            
+
+            // window.close()
+        }
+    </script>
+</body>
+</html>

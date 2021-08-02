@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/website/static/css/user-profile_style.css">
+
+</head>
+<body>
+
+    <div class="grid-container">
+        <div class="side-bar"></div>
+        <div class="main">
+                <div class="main__menu">
+                    <!-- <button class="sign-in">ورود/ثبت نام</button> -->
+
+                    <div class="signed-in">
+                        <button class="signed-in__btn"><p>V</p><p>علیرضا</p></button>
+                        <div class="signed-in__dropdown-content">
+                            <a href="#">پروفایل</a>
+                            <a href="#">خروج از حساب</a>
+                        </div>
+                    </div>
+
+                    <div class="main__menu__items">
+                        <button onclick="window.location.replace(`${window.location.origin}/main#productt`)">محصولات</button>
+                        <button>پشتیبانی</button>
+                        <button onclick="window.location.replace(`${window.origin}/main`)">صفحه اول</button>
+                        <button class="main__menu__shop">فروشگاه</link>
+                    </div>
+                </div>
+                <!-- Upper Tab content -->
+                <div class="main__main">
+                    <div class="tab">
+                        <div id="profile__header" class="tabcontent">
+                            <p class="profile__header__welcome">علیرضا عزیز، خوش آمدید</p>
+                            <p class="profile__header__credit__text">موجودی حساب شما:</p>
+                            <p class="profile__header__credit__amount">100,000</p>
+                            <button class="profile__header__credit__button">افزایش موجودی</button>
+                        </div>
+                        <div id="receipt__header" class="tabcontent1">
+                            <p class="receipt__header__welcome">علیرضا عزیز، خوش آمدید</p>
+                        </div>
+                        <!-- Tab Buttons -->
+                        <div class="tab__buttons">
+                            <button class="receipt__button">رسید ها</button>
+                            <button class="profile__button">پروفایل</button>
+                        </div>
+                        <!-- Lower Tab Content -->
+                        <div id="profile__content" class="tabcontent">
+                            <div class="profile__content__upper">
+                                <div class="profile__name">
+                                    <div class="profile__fname">
+                                        <div class="label__div"><i class="profile__fname__label">نام</i></div>
+                                        <input type="text" class="profile__fname__input" placeholder="علیرضا">
+                                    </div>
+                                    <div class="profile__lname">
+                                        <div class="label__div"><i class="profile__lname__label">نام خانوادگی</i></div>
+                                        <input type="text" class="profile__lname__input" placeholder="عابدینی">
+                                    </div>
+                                </div>
+                                <div class="profile__password">
+                                    <div class="label__div"><i class="profile__password__label">رمز عبور</i></div>
+                                    <input type="password" class="profile__password__input" placeholder="رمز عبور خود را وارد کنید">
+                                </div>
+                                <div class="profile__address">
+                                    <div class="label__div" id="label__div--address"><i class="profile__address__label">آدرس</i></div>
+                                    <input type="text" class="profile__address__input" placeholder="لطفا آدرس خود را وارد کنید">
+                                </div>
+                            </div>
+
+                            <div class="profile__content__lower">
+                                <button class="profile__button--edit">ثبت و ویرایش</button>
+                            </div>
+
+                        </div>
+                        <div id="receipt__content" class="tabcontent1">
+                            <table class="receipt__table">
+                                <tr>
+                                  <th>کد پیگیری</th>
+                                  <th>کالا</th>
+                                  <th>قیمت پرداخت شده</th>
+                                  <th>آدرس ارسال شده</th>
+                                </tr>
+                                <tr>
+                                  <td>ُSHOP102030</td>
+                                  <td>موس گیمینگ ریزر</td>
+                                  <td>200,000 تومان</td>
+                                  <td>تهران، تهران، امیرکبیر</td>
+                                </tr>
+                                <tr>
+                                    <td>ُSHOP102030</td>
+                                    <td>موس گیمینگ ریزر</td>
+                                    <td>200,000 تومان</td>
+                                    <td>تهران، تهران، امیرکبیر</td>
+                                  </tr>
+                                  <tr>
+                                    <td>ُSHOP102030</td>
+                                    <td>موس گیمینگ ریزر</td>
+                                    <td>200,000 تومان</td>
+                                    <td>تهران، تهران، امیرکبیر</td>
+                                  </tr>
+                                  <tr>
+                                    <td>ُSHOP102030</td>
+                                    <td>موس گیمینگ ریزر</td>
+                                    <td>200,000 تومان</td>
+                                    <td>تهران، تهران، امیرکبیر</td>
+                                  </tr>
+                                  
+                              </table>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="main__footer">
+                <p class="main__footer__text">تمامی حقوق برای توسعه دهندگان، علیرضا عابدینی و سلوا کریمی، محفوظ است </p>
+                </div>
+            
+        </div>
+        <div class="side-bar"></div>
+    </div>
+
+</body>
+</html>

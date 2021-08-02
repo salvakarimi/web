@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>سبد خرید</title>
+
+        <style>
+            * {
+                font-size: 16px;
+            }
+            body {
+                background-color: aliceblue;
+                font-size: 20px;
+            }
+            .basket__table__div {
+                position: fixed;
+                top: 30%;
+                left: 30%;
+                max-height: 300px;
+                width: 500px;
+                overflow: auto;
+                /* padding-left: 50px; */
+                /* padding-right: 50px; */
+                background-color: white;
+            }
+            .basket__table {
+                width: 50vh;
+                padding-right: 25px;
+                padding-left: 25px;
+                padding-bottom: 25px;
+                background-color: white;
+                border-spacing: 0px;
+                direction: rtl;
+            }
+            .basket__table th,
+            .basket__table td {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                color: gray;
+                font-size: 12px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .basket__table td {
+                color: rgb(37, 33, 33);
+            }
+
+            .basket__table tr:hover {
+                background-color: rgb(247, 247, 247);
+            }
+        </style>
+    </head>
+    <body style="text-align: center">
+        <h1>{{ user.first_name }} لیست خرید</h1>
+
+        <div class="basket__table__div">
+            <table class="basket__table">
+                <tr>
+                    <th>نام محصول</th>
+                    <th>تعداد</th>
+                    <th>قیمت کل</th>
+                    <th>عملیات</th>
+                </tr>
+            </table>
+        </div>
+        <button
+            class="shop-btn"
+            id="{{ user.id }}"
+            style="
+                background-color: blue;
+                border: none;
+                border-radius: 24px;
+                position: fixed;
+                top: 70%;
+                left: 40%;
+                padding: 10px;
+                color: white;
+            "
+        >
+            خرید
+        </button>
+        <a
+            href="/user"
+            style="
+                background-color: red;
+                border: none;
+                border-radius: 24px;
+                position: fixed;
+                top: 70%;
+                left: 45%;
+                padding: 10px;
+                color: white;
+                text-decoration: none;
+            "
+        >
+            بازگشت
+        </a>
+    </body>
+
+    <script>
+        window.onload = () => {
+            get_all_basket()
+        }
+        function get_all_basket(inp_replace = 0) {
+            user_id = document.querySelector(".shop-btn").id
+            fetch(`/user/get_user_shop_basket`, {
+                method: "POST",
+                body: JSON.stringify({ command: "get_basket", user: user_id }),
+                headers: new Headers({ "content-type": "application/json" }),
+                cache: "no-cache",
+            }).then(function (response) {
+                if (response.status !== 200) {
+                    console.log(`bad request: ${response.status}`)
+                    window.alert(
+                        `Cant get your shop basket (server error. Error: ${response.status})`
+                    )
+                    return
+                }
+                response.json().then(function (data) {
+                    console.log(`got basket response: ${data}`)
+                    basket = data.message
+                    var basket_table = document.querySelector(".basket__table")
+                    if (inp_replace === 1) {
+                        basket_table.innerHTML = ""
+
+                        var init_tr = document.createElement("tr")
+                        var init_th1 = document.createElement("th")
+                        init_th1.innerHTML = "نام محصول"
+
+                        var init_th2 = document.createElement("th")
+                        init_th2.innerHTML = "تعداد"
+
+                        var init_th3 = document.createElement("th")
+                        init_th3.innerHTML = "قیمت کل"
+
+                        var init_th4 = document.createElement("th")
+                        init_th4.innerHTML = "عملیات"
+
+                        init_tr.appendChild(init_th1)
+                        init_tr.appendChild(init_th2)
+                        init_tr.appendChild(init_th3)
+                        init_tr.appendChild(init_th4)
+                        basket_table.appendChild(init_tr)
+                    }
+                    totalBasket = basket.length
+                    shop_btn.style.display = "block"
+                    if (totalBasket === 0) {
+                        shop_btn.style.display = "none"
+                        window.alert("سبد خرید شما خالی است")
+                    }
+
+                    for (var i = 0; i < totalBasket; i++) {
+                        var basket_row = createBasketRow(basket[i])
+                        basket_table.appendChild(basket_row)
+                    }
+                })
+            })
+        }
+
+        function createBasketRow(inp_basket) {
+            // <tr>
+            // <td>ُنام محصول</td>
+            // <td>تعداد</td>
+            // <td>قیمت کل</td>
+            // <td>حذف</td>
+            // </tr>
+
+            inp_basket_id = inp_basket["id"]
+            var first_tr = document.createElement("tr")
+            first_tr.id = inp_basket_id
+
+            var td1 = document.createElement("td")
+
+            td1.innerHTML = inp_basket["product_name"]
+            first_tr.appendChild(td1)
+
+            var td2 = document.createElement("td")
+            td2.innerHTML = inp_basket["product_count"]
+            first_tr.appendChild(td2)
+
+            var td3 = document.createElement("td")
+            td3.innerHTML = `${inp_basket["total_price"]} تومان`
+            first_tr.appendChild(td3)
+
+            var td = document.createElement("td")
+            var btn = document.createElement("button")
+            btn.textContent = "حذف X"
+            btn.className = inp_basket_id
+            btn.style.backgroundColor = "inherit"
+            btn.style.border = "none"
+            btn.style.cursor = "pointer"
+            btn.style.color = "red"
+            btn.addEventListener("click", () => {
+                fetch("/user/delete_basket", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        command: "delete_basket",
+                        id: inp_basket["id"],
+                        product_name: inp_basket["product_name"],
+                        product_count: inp_basket["product_count"],
+                    }),
+                    headers: new Headers({
+                        "content-type": "application/json",
+                    }),
+                    cache: "no-cache",
+                }).then(function (response) {
+                    if (response.status !== 200) {
+                        console.log("bad request")
+                        window.alert(
+                            `Cant Delete the basket (server error. Error: ${response.status})`
+                        )
+                        return
+                    }
+                    get_all_basket(1)
+                })
+            })
+            td.appendChild(btn)
+
+            first_tr.appendChild(td)
+
+            return first_tr
+        }
+
+        var shop_btn = document.querySelector(".shop-btn")
+        shop_btn.style.cursor = "pointer"
+        shop_btn.addEventListener("click", (event) => {
+            fetch("/user/purchase", {
+                method: "POST",
+                body: JSON.stringify({
+                    command: "purchase",
+                    id: shop_btn.id,
+                }),
+                headers: new Headers({
+                    "content-type": "application/json",
+                }),
+                cache: "no-cache",
+            }).then(function (response) {
+                if (response.status !== 200 && response.status !== 405) {
+                    console.log("bad request")
+                    window.alert(
+                        `Cant purchase your shop basket. Error: ${response.status}`
+                    )
+                    return
+                }
+                response.json().then(function (data) {
+                    console.log(data)
+                    window.alert(data["message"])
+                    get_all_basket(1)
+                })
+            })
+        })
+    </script>
+</html>

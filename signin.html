@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فروشگاه آنلاین</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/signin_style.css')}}">
+</head>
+<body>
+      <div class="grid-container">
+          <div class="side-bar"></div>
+          <div class="main">
+                <div class="main__menu">
+                    <button id='signup_btn' class="sign-in">ثبت نام</button>
+                    
+                    <!-- <div class="signed-in">
+                        <button class="signed-in__btn"><p>V</p><p>علیرضا</p></button>
+                        <div class="signed-in__dropdown-content">
+                            <a href="#">پروفایل</a>
+                            <a href="#">خروج از حساب</a>
+                        </div>
+                    </div> -->
+
+                    <div class="main__menu__items">
+                        <button onclick="window.location.replace(`${window.location.origin}/main#productt`)">محصولات</button>
+                        <button>پشتیبانی</button>
+                        <button onclick="window.location.replace(`${window.origin}/main`)">صفحه اول</button>
+                        <button class="main__menu__shop">فروشگاه</button>
+                    </div>
+                </div>
+                <div class="main__main">
+                    <div class="main__main__title">
+                        <p style="font-size: 19.2 px !important; color: rgb(14,186,197);"> فروشگاه - ورود</p>
+                    </div>
+                    <div id='form' class="main__main__form">
+                    
+                        <div  class="main__form__mail"> <!--form-control-->
+                            <input id="email" class="form__mail--input" type="email" style="text-align: right;" placeholder="...ایمیل خود را وارد کنید">
+                            <label style="color: white;" class="form__mail--label" for="email">ایمیل</label>
+                            <small id='small1'></small>
+                        </div>
+                        <div  class="main__form__pass">
+                            <input id="pass" class="form__pass--input" type="password" style="text-align: right;" minlength="6" placeholder="...رمز عبور خود را وارد کنید">
+                            <label  style="color: white;" class="form__pass--label" for="pass">رمز عبور</label>
+                            <small></small>
+                        </div>   
+                    </div>    
+                    <div  class="main__main__button">
+                        <button id='button' type="submit" class="main__button__signin">ورود</button>
+                        <!-- The Modal -->
+                        <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                    <h2>Modal Header</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <p id='modal__msg'></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <h3>Modal Footer</h3>
+                                </div>
+                            </div>
+  
+                        </div>
+
+                    </div>
+                </div>
+                <div class="main__footer">
+                  <p class="main__footer__text">تمامی حقوق برای توسعه دهندگان، علیرضا عابدینی و سلوا کریمی، محفوظ است </p>
+                </div>
+          </div>
+          <div class="side-bar"></div>
+      </div>
+    <script src="{{url_for('static', filename='/js/signin.js')}}"></script>  
+</body>
+</html>

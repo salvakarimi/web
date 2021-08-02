@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>فروشگاه آنلاین</title>
+        <link
+            rel="stylesheet"
+            href="{{url_for('static', filename='/css/main_style.css')}}"
+        />
+    </head>
+    <body>
+        <div class="grid-container">
+            <div class="side-bar"></div>
+            <div class="main">
+                <div class="main__menu">
+                    <!-- <button class="sign-in">ورود/ثبت نام</button> -->
+                    {% if user.is_authenticated %}
+                    <div class="signed-in">
+                        <button class="signed-in__btn">
+                            <p>V</p>
+                            <p>{{user.first_name}}</p>
+                        </button>
+                        <div class="signed-in__dropdown-content">
+                            <a id="dropdown__profile" href="#">پروفایل</a>
+                            <a id="dropdown__logout" href="#">خروج از حساب</a>
+                        </div>
+                    </div>
+                    {%else%}
+                    <button id="main__signin" class="sign-in">
+                        ورود/ثبت نام
+                    </button>
+                    {% endif %}
+
+                    <div class="main__menu__items">
+                        <button
+                            onclick="window.location.replace(`${window.location.origin}/main#productt`)"
+                        >
+                            محصولات
+                        </button>
+                        <button>پشتیبانی</button>
+                        <button
+                            onclick="window.location.replace(`${window.origin}/main`)"
+                        >
+                            صفحه اول
+                        </button>
+                        <button class="main__menu__shop">فروشگاه</button>
+                    </div>
+                </div>
+                <div class="main__main">
+                    <div class="loading-2 loading-2--full-height"></div>
+                        <!-- The Modal -->
+                        <div id="myModal" class="modal">
+                            <!-- Modal content -->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <span class="close">&times;</span>
+                                        <h2>Modal Header</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class='modal_input_box'>
+                                            <input id='modal_button' type="submit" class='modal__button'>
+                                            <input id='modal_input' type='text' class='modal__input'>
+                                        </div>
+                                        <p id='modal__msg'></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h3>Modal Footer</h3>
+                                    </div>
+                                </div>
+                            </div>
+                    <p class="main__main__p--search">
+                        در محصولات سایت جستجو کنید
+                    </p>
+                    <input
+                        class="main__main__input--search"
+                        type="text"
+                        placeholder="نام محصول خود را وارد کنید"
+                    />
+                    <button class="main__main__button--search">
+                        جستجو کنید
+                    </button>
+                    <button class="change-slider" id="next">></button>
+                    <button class="change-slider" id="prev"><</button>
+                    <div class="slider">
+                        <img
+                            class="slider__image"
+                            src="{{url_for('static', filename='/Pictures/clock.png')}}"
+                        />
+                        <img
+                            class="slider__image"
+                            src="{{url_for('static', filename='/Pictures/back_2.png')}}"
+                        />
+                        <img
+                            class="slider__image"
+                            src="{{url_for('static', filename='/Pictures/PngItem_6791981.png')}}"
+                        />
+                    </div>
+                </div>
+                <div class="main__bottom">
+                    <div class="main__bottom__sort">
+                        <button class="main__bottom__sort__button--date">
+                            تاریخ ایجاد
+                        </button>
+                        <button class="main__bottom__sort__button--price">
+                            قیمت
+                        </button>
+                        <button class="main__bottom__sort__button--sales">
+                            بیشترین فروش
+                        </button>
+                        <p>مرتب سازی بر اساس</p>
+                    </div>
+                    <div
+                        class="main__bottom__lower"
+                        name="product"
+                        id="productt"
+                    >
+                        <div class="main__bottom__lower__products"></div>
+                        <div class="main__bottom__lower__filter">
+                            <div
+                                class="main__bottom__lower__filter--categories"
+                            >
+                                <p>دسته بندی ها</p>
+                                <div
+                                    class="
+                                        main__bottom__lower__filter--categories--choices
+                                    "
+                                >
+                                    <!-- <div class="choice">
+                                        <label for="first">دسته بندی یک</label>
+                                        <input
+                                            type="checkbox"
+                                            name="first"
+                                            id="first"
+                                        />
+                                    </div>
+                                    <div class="choice">
+                                        <label for="second">دسته بندی دو</label>
+                                        <input
+                                            type="checkbox"
+                                            name="second"
+                                            id="second"
+                                        />
+                                    </div>
+                                    <div class="choice">
+                                        <label for="third">دسته بندی سه</label>
+                                        <input
+                                            type="checkbox"
+                                            name="third"
+                                            id="third"
+                                        />
+                                    </div>
+                                    <div class="choice">
+                                        <label for="fourth"
+                                            >دسته بندی چهار</label
+                                        >
+                                        <input
+                                            type="checkbox"
+                                            name="fourth"
+                                            id="fourth"
+                                        />
+                                    </div>
+                                    <div class="choice">
+                                        <label for="fifth">دسته بندی پنج</label>
+                                        <input
+                                            type="checkbox"
+                                            name="fifth"
+                                            id="fifth"
+                                        />
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="main__bottom__lower__filter--price">
+                                <p>قیمت</p>
+                                <section class="range-slider">
+                                    <span class="rangeValues"></span>
+                                    <input
+                                        value="0"
+                                        min="0"
+                                        max="500000"
+                                        step="500"
+                                        type="range"
+                                    />
+                                    <input
+                                        value="500000"
+                                        min="0"
+                                        max="500000"
+                                        step="500"
+                                        type="range"
+                                    />
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-per-page__div">
+                        <select
+                            name="item-per-page__select"
+                            id="item-per-page__select"
+                        >
+                            <option>10</option>
+                            <option selected="selected">15</option>
+                            <option>20</option>
+                        </select>
+                        <label for="item-per-page__select"
+                            >تعداد کالا در صفحه</label
+                        >
+                    </div>
+                    <div class="paging">
+                        <!-- <button class="prev-page__btn">صفحه قبل</button>
+
+                        <div class="page__buttons"></div>
+
+
+                        <button class="next-page__btn">صفحه بعد</button> -->
+                    </div>
+                </div>
+                <div class="main__footer">
+                    <p class="main__footer__text">
+                        تمامی حقوق برای توسعه دهندگان، علیرضا عابدینی و سلوا
+                        کریمی، محفوظ است
+                    </p>
+                </div>
+            </div>
+            <div class="side-bar"></div>
+        </div>
+
+        <script src="{{url_for('static', filename='/js/main.js')}}"></script>
+    </body>
+</html>

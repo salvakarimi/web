@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه پروفایل کاربر</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/user_style.css')}}">
+
+</head>
+<body>
+
+    <div class="grid-container">
+        <div class="side-bar"></div>
+        <div class="main">
+                <div class="main__menu">
+                    <!-- <button class="sign-in">ورود/ثبت نام</button> -->
+
+                    <div class="signed-in">
+                        <button class="signed-in__btn"><p>V</p><p>{{user.first_name}}</p></button>
+                        <div class="signed-in__dropdown-content">
+                            <a href="#">پروفایل</a>
+                            <a id='user_logout' href="#">خروج از حساب</a>
+                        </div>
+                    </div>
+
+                    <div class="main__menu__items">
+                        <button onclick="window.location.replace(`${window.location.origin}/main#productt`)">محصولات</button>
+                        <button>پشتیبانی</button>
+                        <button onclick="window.location.replace(`${window.origin}/main`)">صفحه اول</button>
+                        <button class="main__menu__shop">فروشگاه</link>
+                    </div>
+                </div>
+                <!-- Upper Tab content -->
+                <div class="main__main">
+                    <div class="tab">
+                        <div id="profile__header" class="tabcontent">
+                            <p class="profile__header__welcome">{{user.first_name}} عزیز، خوش آمدید</p>
+                            <p class="profile__header__credit__text">موجودی حساب شما:</p>
+                            <p class="profile__header__credit__amount">{{user.charge}}</p>
+                            <button id ='increase_credit' class="profile__header__credit__button">افزایش موجودی</button>
+                        </div>
+                        <div id="receipt__header" class="tabcontent1">
+                            <p class="receipt__header__welcome">{{user.first_name}} عزیز، خوش آمدید</p>
+                        </div>
+                        <!-- Tab Buttons -->
+                        <div class="tab__buttons">
+                            <button class="receipt__button">رسید ها</button>
+                            <button class="profile__button">پروفایل</button>
+                        </div>
+                        <!-- Lower Tab Content -->
+                        <div id="profile__content" class="tabcontent">
+                            <div class="profile__content__upper">
+                                <div class="profile__name">
+                                    <div  class="profile__fname">
+                                        <div class="label__div"><i class="profile__fname__label">نام</i></div>
+                                        <input type="text" id='fname' class="profile__fname__input" placeholder="{{user.first_name}}">
+                                        <small></small>
+                                    </div>
+                                    <div class="profile__lname">
+                                        <div class="label__div"><i class="profile__lname__label">نام خانوادگی</i></div>
+                                        <input type="text" id='lname' class="profile__lname__input" placeholder="{{user.last_name}}">
+                                        <small id="lname_small"></small>
+                                    </div>
+                                </div>
+                                <div class="profile__password">
+                                    <div class="label__div"><i class="profile__password__label">رمز عبور</i></div>
+                                    <input type="password" id='pass' class="profile__password__input" placeholder="رمز عبور خود را وارد کنید">
+                                    <small></small>
+                                </div>
+                                <div class="profile__address">
+                                    <div class="label__div" id="label__div--address"><i class="profile__address__label">آدرس</i></div>
+                                    <input type="text" id='address' class="profile__address__input" placeholder="{{user.address}}">
+                                    <small></small>
+                                </div>
+                            </div>
+
+                            <div class="profile__content__lower">
+                                <button id='edit' class="profile__button--edit">ثبت و ویرایش</button>
+                                <!-- The Modal -->
+                                <div id="myModal" class="modal">
+                                <!-- Modal content -->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="close">&times;</span>
+                                            <h2>Modal Header</h2>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id='modal__msg'></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <h3>Modal Footer</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="receipt__content" class="tabcontent1">
+                            <table class="receipt__table">
+                                <tr>
+                                  <th>کد پیگیری</th>
+                                  <th>کالا</th>
+                                  <th>قیمت پرداخت شده</th>
+                                  <th>آدرس ارسال شده</th>
+                                  <th>وضعیت</th>
+                                </tr>
+                                <!-- <tr>
+                                  <td>ُSHOP102030</td>
+                                  <td>موس گیمینگ ریزر</td>
+                                  <td>200,000 تومان</td>
+                                  <td>تهران، تهران، امیرکبیر</td>
+                                  <td>در حال انجام</td> -->
+                                <!-- </tr>
+                                <tr>
+                                    <td>ُSHOP102030</td>
+                                    <td>موس گیمینگ ریزر</td>
+                                    <td>200,000 تومان</td>
+                                    <td>تهران، تهران، امیرکبیر</td>
+                                  </tr>
+                                  <tr>
+                                    <td>ُSHOP102030</td>
+                                    <td>موس گیمینگ ریزر</td>
+                                    <td>200,000 تومان</td>
+                                    <td>تهران، تهران، امیرکبیر</td>
+                                  </tr>
+                                  <tr>
+                                    <td>ُSHOP102030</td>
+                                    <td>موس گیمینگ ریزر</td>
+                                    <td>200,000 تومان</td>
+                                    <td>تهران، تهران، امیرکبیر</td>
+                                  </tr> -->
+                                  
+                              </table>
+                        </div>
+
+                    </div>
+
+                    <button class="shop_button">مشاهده سبد خرید</button>
+
+                </div>
+                <div class="main__footer">
+                <p class="main__footer__text">تمامی حقوق برای توسعه دهندگان، علیرضا عابدینی و سلوا کریمی، محفوظ است </p>
+                </div>
+            
+        </div>
+        <div class="side-bar"></div>
+    </div>
+
+    <script src="{{url_for('static', filename='/js/user.js')}}"></script>
+</body>
+</html>

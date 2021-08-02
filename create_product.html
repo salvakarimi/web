@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خرید محصول</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+    <div style="align-items: right;">
+        <form class="form-group">
+            <input type="text" name="name" class="name-inp"><label for="name">نام محصول</label>
+        </form>
+            <br>
+        <form class="form-group">
+            <input type="text" name="category" placeholder="دسته بندی نشده" class="cat-inp"> <label for="category">دسته بندی</label>
+            <br>
+        </form>
+        <form class="form-group">
+            <input type="number" name="price" class="price-inp"><label for="price">قیمت</label>
+            <br>
+        </form>
+        <form class="form-group">
+            <input type="number" name="availability_number" class="av-num"><label for="availability_number">موجودی</label>
+        </form>
+            <button class="btn btn-primary">submit</button>
+            <a href="/admin">بازگشت</a>
+    </div>    
+
+    </form>
+
+    <script>
+        var btn = document.querySelector(".btn-primary")
+        btn.addEventListener('click', submit_product)
+        function submit_product(){
+            var name = document.querySelector(".name-inp").value
+            var category = document.querySelector(".cat-inp").value
+            var price = document.querySelector(".price-inp").value
+            var av = document.querySelector(".av-num").value
+            var sold = 0
+            fetch(`${window.origin}/admin/create_product/submit`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    "name": name, "category": category, "price": price, "av": av, "sold": sold
+                }),
+                headers: new Headers({"content-type": "application/json"})
+            })
+            .then(function (response){
+                if(response.status !== 200){
+                    console.log(`bad request: ${response.status}`)
+                    window.alert(`Cant create product with this data. Error: ${response.status}`)
+                    window.location.replace('/admin')
+                }
+                else{
+                    window.location.replace('/admin')
+                }
+        
+    })
+
+            // window.close()
+        }
+    </script>
+</body>
+</html>
